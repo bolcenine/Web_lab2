@@ -1,0 +1,38 @@
+HTML код:
+
+HTML
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Величина карти</title>
+</head>
+<body>
+    <h1>Введіть номер карти:</h1>
+    <input type="number" id="card-number" min="1" max="14">
+    <button onclick="showCardValue()">Показати величину</button>
+
+    <p id="card-value"></p>
+
+    <script>
+        function showCardValue() {
+            const cardNumber = document.getElementById("card-number").value;
+            const cardValueElement = document.getElementById("card-value");
+
+            if (cardNumber >= 1 && cardNumber <= 10) {
+                cardValueElement.textContent = cardNumber;
+            } else if (cardNumber === 11) {
+                cardValueElement.textContent = "Валет";
+            } else if (cardNumber === 12) {
+                cardValueElement.textContent = "Дама";
+            } else if (cardNumber === 13) {
+                cardValueElement.textContent = "Король";
+            } else if (cardNumber === 14) {
+                cardValueElement.textContent = "Туз";
+            } else {
+                cardValueElement.textContent = "Невідома карта";
+            }
+        }
+    </script>
+</body>
+</html>
