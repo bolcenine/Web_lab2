@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Розрахунок швидкості руху машини</title>
+</head>
+<body>
+    <h1>Розрахунок швидкості</h1>
+    <p>
+        <label for="distance">Пройдений шлях (км):</label>
+        <input type="number" id="distance" value="10">
+    </p>
+    <p>
+        <label for="time">Час руху (год):</label>
+        <input type="number" id="time" value="1">
+    </p>
+    <p>
+        <label for="unit">Одиниці вимірювання:</label>
+        <select id="unit">
+            <option value="kmh">км/год</option>
+            <option value="ms">м/с</option>
+        </select>
+    </p>
+    <button onclick="calculateSpeed()">Розрахувати</button>
+
+    <p id="speed-result"></p>
+
+    <script>
+        function calculateSpeed() {
+            const distance = parseFloat(document.getElementById("distance").value);
+            const time = parseFloat(document.getElementById("time").value);
+            const unit = document.getElementById("unit").value;
+
+            let speed = distance / time;
+
+            if (unit === "ms") {
+                speed *= 3.6; // Перевести з м/с в км/год
+            }
+
+            const speedResultElement = document.getElementById("speed-result");
+            speedResultElement.textContent = `Швидкість: ${speed.toFixed(2)} ${unit}`;
+        }
+    </script>
+</body>
+</html>
