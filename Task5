@@ -1,0 +1,66 @@
+HTML код:
+
+HTML
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Підрахунок кількості строк</title>
+</head>
+<body>
+    <h1>Підрахунок кількості строк</h1>
+    <p>
+        <label for="folder">Папка проекту:</label>
+        <input type="text" id="folder" value="." />
+    </p>
+    <p>
+        <label for="extension">Розширення файлів:</label>
+        <input type="text" id="extension" value=".js" />
+    </p>
+    <button onclick="countLines()">Підрахувати</button>
+
+    <p id="results"></p>
+
+    <script>
+        function countLines() {
+            const folder = document.getElementById("folder").value;
+            const extension = document.getElementById("extension").value;
+            const resultsElement = document.getElementById("results");
+
+            resultsElement.textContent = "Підрахунок...";
+
+            // Функція для рекурсивного обходу каталогів
+            function walkDir(dir, callback) {
+                const fs = require("fs");
+                const files = fs.readdirSync(dir);
+
+                for (const file of files) {
+                    const filePath = `${dir}/${file}`;
+                    const stats = fs.lstatSync(filePath);
+
+                    if (stats.isDirectory()) {
+                        walkDir(filePath, callback);
+                    } else if (stats.isFile() && file.endsWith(extension)) {
+                        callback(filePath);
+                    }
+                }
+            }
+
+            // Функція для підрахунку кількості строк у файлі
+            function countLinesInFile(filePath) {
+                const fs = require("fs");
+                const data = fs.readFileSync(filePath, "utf-8");
+                return data.split("\n").length;
+            }
+
+            // Запуск рекурсивного обходу каталогів
+            let totalLines = 0;
+            walkDir(folder, (filePath) => {
+                totalLines += countLinesInFile(filePath);
+            });
+
+            resultsElement.textContent = `Кількість строк: ${totalLines}`;
+        }
+    </script>
+</body>
+</html>
