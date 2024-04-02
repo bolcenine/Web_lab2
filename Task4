@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Видалення символів між дужками</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Видалення символів між дужками</h1>
+    <p>
+        <label for="input_text">Вхідний текст:</label>
+        <textarea id="input_text" rows="5" cols="50"></textarea>
+    </p>
+    <p>
+        <label for="output_text">Вихідний текст:</label>
+        <textarea id="output_text" rows="5" cols="50"></textarea>
+    </p>
+    <button onclick="removeBrackets()">Видалити</button>
+
+    <script>
+        function removeBrackets() {
+            const inputText = document.getElementById("input_text").value;
+            const outputText = document.getElementById("output_text");
+
+            let result = "";
+            let inBrackets = false;
+            for (const char of inputText) {
+                if (char === "(") {
+                    inBrackets = true;
+                } else if (char === ")") {
+                    inBrackets = false;
+                } else if (!inBrackets) {
+                    result += char;
+                }
+            }
+
+            outputText.textContent = result;
+        }
+    </script>
+</body>
+</html>
