@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Підрахунок частоти букв</title>
+</head>
+<body>
+    <h1>Введіть текст:</h1>
+    <textarea id="text-input" rows="10" cols="50"></textarea>
+    <button onclick="countFrequencies()">Підрахувати частоти</button>
+
+    <table id="frequencies-table">
+        <thead>
+            <tr>
+                <th>Буква</th>
+                <th>Частота</th>
+            </tr>
+        </thead>
+        <tbody>
+            </tbody>
+    </table>
+
+    <script>
+        const alphabet = "abcdefghijklmnopqrstuvwxyz";
+
+        function countFrequencies() {
+            const textInput = document.getElementById("text-input");
+            const frequenciesTable = document.getElementById("frequencies-table");
+            const tbody = frequenciesTable.getElementsByTagName("tbody")[0];
+
+            // Очистити таблицю
+            tbody.innerHTML = "";
+
+            // Створити об'єкт для зберігання частот
+            const frequencies = {};
+            for (const char of alphabet) {
+                frequencies[char] = 0;
+            }
+
+            // Підрахувати частоти букв
+            const text = textInput.value.toLowerCase();
+            for (const char of text) {
+                if (alphabet.includes(char)) {
+                    frequencies[char]++;
+                }
+            }
+
+            // Заповнити таблицю
+            for (const char of alphabet) {
+                const frequency = frequencies[char];
+
+                const row = document.createElement("tr");
+                const cellChar = document.createElement("td");
+                cellChar.textContent = char;
+                const cellFrequency = document.createElement("td");
+                cellFrequency.textContent = frequency;
+
+                row.appendChild(cellChar);
+                row.appendChild(cellFrequency);
+
+                tbody.appendChild(row);
+            }
+        }
+    </script>
+</body>
+</html>
